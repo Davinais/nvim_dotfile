@@ -60,6 +60,8 @@ require("lualine").setup()
 require("nvim-treesitter").setup{}
 
 -- Indent blankline
+vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg="#3b4261", nocombine=true })
+vim.api.nvim_set_hl(0, "IndentBlanklineSpaceCharBlankline", { fg="#3b4261", nocombine=true })
 vim.opt.list = true
 vim.opt.listchars:append({ space = "⋅", eol = "↴" })
 require("indent_blankline").setup {

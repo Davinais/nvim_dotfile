@@ -44,11 +44,13 @@ require("lspconfig").clangd.setup {
     end,
     cmd = {
         "clangd",
+        "-j=8",
         "--background-index",
         "--pch-storage=memory",
         -- You MUST set this arg ↓ to your c/cpp compiler location (if not included)!
-        "--query-driver=" .. get_binary_path_list({ "clang++", "clang", "gcc", "g++" }),
+        "--query-driver=" .. get_binary_path_list({ "clang++", "clang", "g++", "gcc" }),
         "--clang-tidy",
+        "--enable-config",
         "--all-scopes-completion",
         "--completion-style=detailed",
         "--header-insertion-decorators",
