@@ -29,5 +29,30 @@ function plugKeys.lsp_keymaps(buf_map)
     buf_map("n", "gi", vim.lsp.buf.implementation, opt_def)
 end
 
+function plugKeys.cmp_keymaps(cmp)
+    return {
+        -- Prev and Next item
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+        -- Start cmp
+        ["<A-.>"] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+        -- Abort cmp
+        ["<A-,>"] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
+        -- Confirm
+        -- Accept currently selected item. If none selected, `select` first item.
+        -- Set `select` to `false` to only confirm explicitly selected items.
+        ["<CR>"] = cmp.mapping.confirm({
+            select = true ,
+            behavior = cmp.ConfirmBehavior.Replace
+        }),
+        -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' })
+    }
+end
+
 return plugKeys
 

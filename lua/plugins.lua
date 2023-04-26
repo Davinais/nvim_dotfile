@@ -40,7 +40,14 @@ local plugins = {
             --Please make sure you install markdown and markdown_inline parser
             {"nvim-treesitter/nvim-treesitter"}
         }
-    }
+    },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-path" },
+    { "hrsh7th/cmp-cmdline" },
+    { "hrsh7th/nvim-cmp" },
+    { "hrsh7th/cmp-vsnip" },
+    { "onsails/lspkind-nvim" }
 }
 
 require("lazy").setup(plugins)
