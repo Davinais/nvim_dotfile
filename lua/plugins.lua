@@ -16,6 +16,7 @@ local plugins = {
         dependencies = { "nvim-tree/nvim-web-devicons" }
     },
     { "lukas-reineke/indent-blankline.nvim" },
+    { "famiu/bufdelete.nvim" },
     -- telescope
     {
         'nvim-telescope/telescope.nvim',
@@ -55,6 +56,8 @@ require("nvim-tree").setup()
 require("bufferline").setup({
     options = {
         diagnostics = "nvim_lsp",
+        close_command = "Bdelete! %d",
+        right_mouse_command = "Bdelete! %d",
         offsets = {{
             filetype = "NvimTree",
             text = "Explorer",
