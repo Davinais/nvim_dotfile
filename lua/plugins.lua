@@ -17,6 +17,7 @@ local plugins = {
     },
     { "lukas-reineke/indent-blankline.nvim" },
     { "famiu/bufdelete.nvim" },
+    { "akinsho/toggleterm.nvim", version = "*", config = true },
     -- git
     { "lewis6991/gitsigns.nvim" },
     -- telescope
@@ -71,6 +72,11 @@ require("bufferline").setup({
 require("lualine").setup()
 require("nvim-treesitter").setup{}
 require('gitsigns').setup()
+
+-- Configuration of toggleterm.nvim
+require("toggleterm").setup{
+    open_mapping = "<F1>"
+}
 
 -- Indent blankline
 vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg="#3b4261", nocombine=true })

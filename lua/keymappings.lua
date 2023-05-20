@@ -4,16 +4,25 @@ local opt_def = {
     silent = true
 }
 
--- Switch window
+-- Window cmds in normal mode
 map("n", "<A-h>", "<C-w>h", opt_def)
 map("n", "<A-j>", "<C-w>j", opt_def)
 map("n", "<A-k>", "<C-w>k", opt_def)
 map("n", "<A-l>", "<C-w>l", opt_def)
+map("n", "<C-w>w", ":Bd<CR>", opt_def)
+
+-- Window cmds in terminal mode
+map("t", "<Esc>", [[<C-\><C-n>]], opt_def)
+map("t", "<A-h>", "<Cmd>wincmd h<CR>", opt_def)
+map("t", "<A-j>", "<Cmd>wincmd j<CR>", opt_def)
+map("t", "<A-k>", "<Cmd>wincmd k<CR>", opt_def)
+map("t", "<A-l>", "<Cmd>wincmd l<CR>", opt_def)
 
 local plugKeys = {}
 
 -- nvim-tree
 map("n", "<F4>", ":NvimTreeToggle<CR>", opt_def)
+map("t", "<F4>", "<Cmd>NvimTreeToggle<CR>", opt_def)
 function plugKeys.lsp_keymaps(buf_map)
     buf_map("n", "gd", ":Lspsaga peek_definition<CR>", opt_def)
     buf_map("n", "gD", ":Lspsaga goto_definition<CR>", opt_def)
