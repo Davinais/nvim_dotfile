@@ -64,7 +64,7 @@ local cmp = require("cmp")
 cmp.setup {
     snippet = {
         expand = function(args)
-            vim.fb["vsnip#anonymous"](args.body)
+            vim.fn["vsnip#anonymous"](args.body)
         end,
     },
     sources = cmp.config.sources({

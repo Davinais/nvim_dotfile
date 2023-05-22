@@ -51,6 +51,7 @@ local plugins = {
     { "hrsh7th/cmp-cmdline" },
     { "hrsh7th/nvim-cmp" },
     { "hrsh7th/cmp-vsnip" },
+    { "hrsh7th/vim-vsnip" },
     { "onsails/lspkind-nvim" }
 }
 
