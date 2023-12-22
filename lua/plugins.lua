@@ -23,8 +23,12 @@ local plugins = {
     -- telescope
     {
         'nvim-telescope/telescope.nvim',
-        version = '0.1.1',
         dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+    {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make',
+        dependencies = { 'nvim-telescope/telescope.nvim' }
     },
     -- nvim themes
     { "folke/tokyonight.nvim" },
@@ -73,6 +77,7 @@ require("bufferline").setup({
 require("lualine").setup()
 require("nvim-treesitter").setup{}
 require('gitsigns').setup()
+require('telescope').load_extension('fzf')
 
 -- Configuration of toggleterm.nvim
 require("toggleterm").setup{

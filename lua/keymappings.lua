@@ -38,6 +38,14 @@ function plugKeys.lsp_keymaps(buf_map)
     buf_map("n", "gi", vim.lsp.buf.implementation, opt_def)
 end
 
+-- telescope
+map("n", "<Leader>ff", "<Cmd>Telescope find_files<CR>", opt_def)
+map("n", "<Leader>fg", "<Cmd>Telescope live_grep<CR>", opt_def)
+map("n", "<Leader>fr", "<Cmd>Telescope resume<CR>", opt_def)
+map("n", "<Leader>gc", "<Cmd>Telescope git_commits<CR>", opt_def)
+map("n", "<Leader>gbc", "<Cmd>Telescope git_bcommits<CR>", opt_def)
+map("n", "<Leader>gs", "<Cmd>Telescope git_status<CR>", opt_def)
+
 function plugKeys.cmp_keymaps(cmp)
     return {
         -- Prev and Next item
