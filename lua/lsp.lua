@@ -3,6 +3,7 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
 --        "clangd",
+--        "pylsp",
     }
 })
 
@@ -48,7 +49,7 @@ require("lspconfig").clangd.setup {
         "--background-index",
         "--pch-storage=memory",
         -- You MUST set this arg ↓ to your c/cpp compiler location (if not included)!
-        "--query-driver=" .. get_binary_path_list({ "clang++", "clang", "g++", "gcc" }),
+        "--query-driver=" .. get_binary_path_list({ "g++", "clang++", "clang", "gcc" }),
         "--clang-tidy",
         "--enable-config",
         "--all-scopes-completion",
@@ -56,6 +57,15 @@ require("lspconfig").clangd.setup {
         "--header-insertion-decorators",
         "--header-insertion=iwyu",
 	},
+}
+-- pylsp
+require("lspconfig").pylsp.setup {
+    on_attach = function(client, bufnr)
+        local function buf_map(...)
+            vim.api.nvim_buf_set_keymap(bufnr, ...)
+        end
+        require("keymappings").lsp_keymaps(buf_map)
+    end,
 }
 require("lspsaga").setup{}
 
@@ -93,12 +103,14 @@ cmp.setup {
 }
 -- Use buffer source for `/`.
 cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
         { name = 'buffer' }
     }
 })
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
