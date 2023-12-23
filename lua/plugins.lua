@@ -1,25 +1,59 @@
 require("load_lazy")
 
+-- Indent blankline
+vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg="#3b4261", nocombine=true })
+vim.api.nvim_set_hl(0, "IndentBlanklineSpaceCharBlankline", { fg="#3b4261", nocombine=true })
+vim.opt.list = true
+vim.opt.listchars:append({ space = "⋅", eol = "↴" })
+
 local plugins = {
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
-        dependencies = { "nvim-tree/nvim-web-devicons" }
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = true,
     },
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        dependencies = { "nvim-tree/nvim-web-devicons" }
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            options = {
+                diagnostics = "nvim_lsp",
+                close_command = "Bdelete! %d",
+                right_mouse_command = "Bdelete! %d",
+                offsets = {{
+                    filetype = "NvimTree",
+                    text = "Explorer",
+                    highlight = "Directory",
+                    text_align = "center"
+                }}
+            }
+        }
     },
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" }
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = true,
     },
-    { "lukas-reineke/indent-blankline.nvim" },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {
+--         show_end_of_line = true,
+--         space_char_blankline = " ",
+        }
+    },
     { "famiu/bufdelete.nvim" },
-    { "akinsho/toggleterm.nvim", version = "*", config = true },
+    {
+        "akinsho/toggleterm.nvim",
+        version = "*",
+        opts = {
+            open_mapping = "<F1>"
+        }
+    },
     -- git
-    { "lewis6991/gitsigns.nvim" },
+    { "lewis6991/gitsigns.nvim", config = true },
     -- telescope
     {
         'nvim-telescope/telescope.nvim',
@@ -31,7 +65,13 @@ local plugins = {
         dependencies = { 'nvim-telescope/telescope.nvim' }
     },
     -- nvim themes
-    { "folke/tokyonight.nvim" },
+    {
+        "folke/tokyonight.nvim",
+        opts = {
+            style = "night",
+            transparent = true
+        }
+    },
     -- LSP Services
     {
         "neovim/nvim-lspconfig",
@@ -46,56 +86,22 @@ local plugins = {
         dependencies = {
             {"nvim-tree/nvim-web-devicons"},
             --Please make sure you install markdown and markdown_inline parser
-            {"nvim-treesitter/nvim-treesitter"}
+            { "nvim-treesitter/nvim-treesitter", config = true }
         }
     },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-path" },
-    { "hrsh7th/cmp-cmdline" },
-    { "hrsh7th/nvim-cmp" },
-    { "hrsh7th/cmp-vsnip" },
-    { "hrsh7th/vim-vsnip" },
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-path" },
+            { "hrsh7th/cmp-cmdline" },
+            { "hrsh7th/cmp-vsnip" },
+            { "hrsh7th/vim-vsnip" },
+        }
+    },
     { "onsails/lspkind-nvim" }
 }
 
 require("lazy").setup(plugins)
-require("nvim-tree").setup()
-require("bufferline").setup({
-    options = {
-        diagnostics = "nvim_lsp",
-        close_command = "Bdelete! %d",
-        right_mouse_command = "Bdelete! %d",
-        offsets = {{
-            filetype = "NvimTree",
-            text = "Explorer",
-            highlight = "Directory",
-            text_align = "center"
-        }}
-    }
-})
-require("lualine").setup()
-require("nvim-treesitter").setup{}
-require('gitsigns').setup()
 require('telescope').load_extension('fzf')
-
--- Configuration of toggleterm.nvim
-require("toggleterm").setup{
-    open_mapping = "<F1>"
-}
-
--- Indent blankline
-vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg="#3b4261", nocombine=true })
-vim.api.nvim_set_hl(0, "IndentBlanklineSpaceCharBlankline", { fg="#3b4261", nocombine=true })
-vim.opt.list = true
-vim.opt.listchars:append({ space = "⋅", eol = "↴" })
-require("indent_blankline").setup {
---     show_end_of_line = true,
---     space_char_blankline = " ",
-}
-
-require("tokyonight").setup({
-    style = "night",
-    transparent = true
-})
-
