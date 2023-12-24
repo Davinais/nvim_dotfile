@@ -72,6 +72,30 @@ local plugins = {
             transparent = true
         }
     },
+    -- tree-sitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+            highlight = { enable = true },
+            indent = { enable = true },
+            ensure_installed = {
+                "bash",
+                "c",
+                "diff",
+                "json",
+                "lua",
+                "markdown",
+                "markdown_inline",
+                "python",
+                "regex",
+                "toml",
+                "yaml",
+            },
+        },
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
+        end,
+    },
     -- LSP Services
     {
         "neovim/nvim-lspconfig",
@@ -85,8 +109,6 @@ local plugins = {
         event = "LspAttach",
         dependencies = {
             {"nvim-tree/nvim-web-devicons"},
-            --Please make sure you install markdown and markdown_inline parser
-            { "nvim-treesitter/nvim-treesitter", config = true }
         }
     },
     {
