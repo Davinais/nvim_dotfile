@@ -13,6 +13,7 @@ map("n", "<C-w>w", ":Bd<CR>", opt_def)
 
 -- Window cmds in terminal mode
 map("t", "<Esc>", [[<C-\><C-n>]], opt_def)
+map("t", "<C-w><Esc>", "<Esc>", opt_def)
 map("t", "<A-h>", "<Cmd>wincmd h<CR>", opt_def)
 map("t", "<A-j>", "<Cmd>wincmd j<CR>", opt_def)
 map("t", "<A-k>", "<Cmd>wincmd k<CR>", opt_def)
