@@ -38,6 +38,9 @@ function plugKeys.lsp_keymaps(buf_map)
     buf_map("n", "gi", vim.lsp.buf.implementation, opt_def)
 end
 
+-- lazygit
+map("n", "<Leader>gg", "<Cmd>LazyGit<CR>", opt_def)
+
 -- telescope
 map("n", "<Leader>ff", "<Cmd>Telescope find_files<CR>", opt_def)
 map("n", "<Leader>fg", "<Cmd>Telescope live_grep<CR>", opt_def)
