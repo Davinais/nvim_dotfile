@@ -32,3 +32,8 @@ vim.o.cmdheight = 2
 
 -- Always show tabline
 vim.o.showtabline = 2
+
+local is_windows = vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1
+if not is_windows then
+    vim.o.shell = "zsh"
+end
