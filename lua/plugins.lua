@@ -36,7 +36,11 @@ local plugins = {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         event = "VeryLazy",
-        config = true,
+        opts = {
+            sections = {
+                lualine_b = { { "branch", fmt = function(str) return str:sub(1, 16) end }, "diff", "diagnostics" }
+            }
+        },
     },
     {
         "lukas-reineke/indent-blankline.nvim",

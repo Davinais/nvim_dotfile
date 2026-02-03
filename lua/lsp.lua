@@ -53,7 +53,7 @@ require("lspconfig").clangd.setup {
         "--background-index",
         "--pch-storage=memory",
         -- You MUST set this arg ↓ to your c/cpp compiler location (if not included)!
-        "--query-driver=" .. get_binary_path_list({ "g++", "clang++", "clang", "gcc" }),
+        "--query-driver=" .. get_binary_path_list({ "g++", "gcc" }),
         "--clang-tidy",
         "--enable-config",
         "--all-scopes-completion",
@@ -66,7 +66,11 @@ require("lspconfig").clangd.setup {
 require("lspconfig").pylsp.setup {
     on_attach = on_attach,
 }
-require("lspsaga").setup{}
+require("lspsaga").setup{
+    lightbulb = {
+        sign = false,
+    },
+}
 
 local lspkind = require("lspkind")
 local cmp = require("cmp")
