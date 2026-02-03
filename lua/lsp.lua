@@ -35,14 +35,18 @@ local function get_binary_path_list(binaries)
     return table.concat(path_list, ",")
 end
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local on_attach = function(client, bufnr)
+    local function buf_map(...)
+        vim.api.nvim_buf_set_keymap(bufnr, ...)
+    end
+    require("keymappings").lsp_keymaps(buf_map)
+end
+
 -- clangd
 require("lspconfig").clangd.setup {
-    on_attach = function(client, bufnr)
-        local function buf_map(...)
-            vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-        require("keymappings").lsp_keymaps(buf_map)
-    end,
+    on_attach = on_attach,
+    capabilities = capabilities,
     cmd = {
         "clangd",
         "-j=8",
@@ -60,12 +64,7 @@ require("lspconfig").clangd.setup {
 }
 -- pylsp
 require("lspconfig").pylsp.setup {
-    on_attach = function(client, bufnr)
-        local function buf_map(...)
-            vim.api.nvim_buf_set_keymap(bufnr, ...)
-        end
-        require("keymappings").lsp_keymaps(buf_map)
-    end,
+    on_attach = on_attach,
 }
 require("lspsaga").setup{}
 

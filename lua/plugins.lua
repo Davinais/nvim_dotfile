@@ -9,6 +9,7 @@ vim.opt.listchars:append({ space = "⋅", eol = "↴" })
 local plugins = {
     {
         "nvim-tree/nvim-tree.lua",
+        cmd = "NvimTreeToggle",
         version = "*",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = true,
@@ -16,6 +17,7 @@ local plugins = {
     {
         "akinsho/bufferline.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        event = "VeryLazy",
         opts = {
             options = {
                 diagnostics = "nvim_lsp",
@@ -33,19 +35,25 @@ local plugins = {
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        event = "VeryLazy",
         config = true,
     },
     {
         "lukas-reineke/indent-blankline.nvim",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
         main = "ibl",
         opts = {
 --         show_end_of_line = true,
 --         space_char_blankline = " ",
         }
     },
-    { "famiu/bufdelete.nvim" },
+    {
+        "famiu/bufdelete.nvim",
+        cmd = "Bdelete"
+    },
     {
         "akinsho/toggleterm.nvim",
+        keys = { "<F1>" },
         version = "*",
         opts = {
             open_mapping = "<F1>"
@@ -55,6 +63,7 @@ local plugins = {
     { "lewis6991/gitsigns.nvim", config = true },
     {
         "kdheepak/lazygit.nvim",
+        cmd = "LazyGit",
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     -- telescope
@@ -70,6 +79,7 @@ local plugins = {
     -- nvim themes
     {
         "folke/tokyonight.nvim",
+        lazy = true,
         opts = {
             style = "night",
             transparent = true
@@ -102,6 +112,8 @@ local plugins = {
     -- LSP Services
     {
         "neovim/nvim-lspconfig",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+        cmd = { "LspInfo", "LspInstall", "LspUninstall" },
         dependencies = {
             { "williamboman/mason.nvim" },
             { "williamboman/mason-lspconfig.nvim" },
@@ -116,6 +128,7 @@ local plugins = {
     },
     {
         "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-buffer" },
