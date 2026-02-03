@@ -27,7 +27,7 @@ map("t", "<F4>", "<Cmd>NvimTreeToggle<CR>", opt_def)
 function plugKeys.lsp_keymaps(buf_map)
     buf_map("n", "gd", ":Lspsaga peek_definition<CR>", opt_def)
     buf_map("n", "gD", ":Lspsaga goto_definition<CR>", opt_def)
-    buf_map("n", "gh", ":Lspsaga lsp_finder<CR>", opt_def)
+    buf_map("n", "gh", ":Lspsaga finder<CR>", opt_def)
     buf_map("n", "go", ":Lspsaga outline<CR>", opt_def)
     buf_map("n", "gr", ":Lspsaga rename<CR>", opt_def)
     buf_map("n", "gR", ":Lspsaga rename ++project<CR>", opt_def)
@@ -36,14 +36,22 @@ function plugKeys.lsp_keymaps(buf_map)
     buf_map("n", "gj", ":Lspsaga diagnostic_jump_next<CR>", opt_def)
     buf_map("n", "gk", ":Lspsaga diagnostic_jump_prev<CR>", opt_def)
     buf_map("n", "K", ":Lspsaga hover_doc<CR>", opt_def)
-    buf_map("n", "gi", vim.lsp.buf.implementation, opt_def)
+    -- buf_map("n", "gi", vim.lsp.buf.implementation, opt_def)
 end
 
 -- lazygit
 map("n", "<Leader>gg", "<Cmd>LazyGit<CR>", opt_def)
 
 -- telescope
-map("n", "<Leader>ff", "<Cmd>Telescope find_files<CR>", opt_def)
+local function telescope_find_or_git_files()
+    if vim.loop.fs_stat(".git") then
+        return "<Cmd>Telescope git_files<CR>"
+    else
+        return "<Cmd>Telescope find_files<CR>"
+    end
+end
+map("n", "<Leader>ff", telescope_find_or_git_files(), opt_def)
+map("n", "<Leader>fF", "<Cmd>Telescope find_files<CR>", opt_def)
 map("n", "<Leader>fg", "<Cmd>Telescope live_grep<CR>", opt_def)
 map("n", "<Leader>fr", "<Cmd>Telescope resume<CR>", opt_def)
 map("n", "<Leader>gc", "<Cmd>Telescope git_commits<CR>", opt_def)
